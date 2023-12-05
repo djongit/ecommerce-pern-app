@@ -1,7 +1,7 @@
 const express = require('express');
 const userRouter = express.Router();
-const ServiceUser = require ('../services/serviceUser');
-const ServiceUserRequest = new ServiceUser();
+const ControllerUser = require ('../controllers/controllerUser');
+const ServiceUserRequest = new ControllerUser();
 
 /**
  * @swagger

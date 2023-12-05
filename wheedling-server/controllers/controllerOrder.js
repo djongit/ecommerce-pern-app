@@ -1,7 +1,7 @@
-const QueryOrder = require('../queries/queryOrder');
-const QueryOrderRequest = new QueryOrder();
+const ModelOrder = require('../models/modelOrder');
+const QueryOrderRequest = new ModelOrder();
 
-module.exports = class ServiceOrder {
+module.exports = class ControllerOrder {
     async orderByUser (userId) {
         try {
             const userOrders = QueryOrderRequest.findOrderByUser(userId);

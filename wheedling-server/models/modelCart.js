@@ -2,7 +2,7 @@ const db = require('../db');
 const pgp = require('pg-promise')({capSQL: true});
 const timeStamp = require('moment');
 
-module.exports = class QueryCart {
+module.exports = class ModelCart {
     constructor(data = {}) {
         this.created = this.created || timeStamp.utc().toISOString();
         this.modified = timeStamp.utc().toISOString();
@@ -16,7 +16,7 @@ module.exports = class QueryCart {
             const request = await db.query(psqlCommand);
             return request.rows?.length? request.rows[0] : null;
         } catch(error) {
-            throw new Error('Unable to create queryCart' + error)
+            throw new Error('Unable to create modelCart' + error)
         }
     }
     async findByUser(userId) {
@@ -26,7 +26,7 @@ module.exports = class QueryCart {
             const request = await db.query(psqlCommand, value);
             return request.rows?.length? request.rows[0] : null;
         } catch(error) {
-            throw new Error('Unable findByUser queryCart' + error);
+            throw new Error('Unable findByUser modelCart' + error);
         }
     }
 
@@ -37,7 +37,7 @@ module.exports = class QueryCart {
             const request = await db.query(psqlCommand, value);
             return request.rows?.length? request.rows[0] : null;
         } catch(error) {
-            throw new Error('Unable to findById queryCart' + error);
+            throw new Error('Unable to findById modelCart' + error);
 
         }
     }

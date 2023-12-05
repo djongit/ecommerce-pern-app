@@ -1,8 +1,8 @@
-const QueryCart = require('../queries/queryCart');
-const QueryCartRequest = new QueryCart();
-const QueryCartItem = require('../queries/queryCartItem');
+const ModelCart = require('../models/modelCart');
+const QueryCartRequest = new ModelCart();
+const ModelCartItem = require('../models/modelCartItem');
 
-module.exports = class ServiceCart {
+module.exports = class ControllerCart {
     
     async createCart (data) {
         try {
@@ -18,7 +18,7 @@ module.exports = class ServiceCart {
         try {
             // Load cart 
             const cart = await QueryCartRequest.findByUser(userId);
-            const items = await QueryCartItem.findCartItem(cart.id);
+            const items = await ModelCartItem.findCartItem(cart.id);
             cart.items = items;
             return cart;
         } catch(error) {
@@ -31,7 +31,7 @@ module.exports = class ServiceCart {
             // Load cart
             const cart = await QueryCartRequest.findByUser(userId);
             // create item in cart
-            const item = await QueryCartItem.createItem({cartId: cart.id, ...data});
+            const item = await ModelCartItem.createItem({cartId: cart.id, ...data});
 
             return item;
         } catch(error) {
@@ -41,7 +41,7 @@ module.exports = class ServiceCart {
 
     async removeItem(id) {
         try{
-            const itemToRemove = await QueryCartItem.deleteCartItem(id);
+            const itemToRemove = await ModelCartItem.deleteCartItem(id);
             return itemToRemove;
         } catch(error) {
             throw new Error('Error removeItem serviceCart' + error);
@@ -49,7 +49,7 @@ module.exports = class ServiceCart {
     }
     async updateItem(id, data) {
         try {
-            const itemToUpdate = await QueryCartItem.updateCartItem(id, data);
+            const itemToUpdate = await ModelCartItem.updateCartItem(id, data);
             return itemToUpdate;
         } catch(error) {
             throw new Error('Error updateItem serviceCart' + error);

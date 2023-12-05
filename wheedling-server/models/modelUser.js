@@ -1,6 +1,6 @@
 const db = require('../db');
 pgp = require('pg-promise')({capSQL: true});
-module.exports = class QueryUser {
+module.exports = class ModelUser {
     getDate () {
         const timestamp = new Date(Date.now());
         return timestamp;
@@ -14,7 +14,7 @@ module.exports = class QueryUser {
            return result.rows?.length? result.row[0] : null;
 
         } catch(error) {
-            throw new Error('Unable to find email queryUser' + error);
+            throw new Error('Unable to find email modelUser' + error);
         }
     }
     async createUser (data) {
@@ -26,7 +26,7 @@ module.exports = class QueryUser {
             const result = await db.query(psqlCommand, values);
             return result.rows?.length? result.row[0] : null;
         } catch (error) {
-            throw new Error('Unable to create queryUser' + error);
+            throw new Error('Unable to create modelUser' + error);
         }
     }
 
@@ -39,7 +39,7 @@ module.exports = class QueryUser {
             const result = await db.query(psqlCommand);
             return result.rows?.length? result.row[0] : null;
         } catch (error) {
-            throw new Error('Unable to update user queryUser' + error);
+            throw new Error('Unable to update user modelUser' + error);
         }
     }
 
@@ -50,7 +50,7 @@ module.exports = class QueryUser {
             const result = await db.query(psqlCommand, value);
             return result.rows?.length? result.rows[0] : null;
         } catch (error) {
-            throw new Error('Unable to get by Id queryUser' + error);
+            throw new Error('Unable to get by Id modelUser' + error);
         }
     }
 }

@@ -1,7 +1,7 @@
-const queriesProduct = require('../queries/queryProducts');
-const queryProductRequest = new queriesProduct();
+const ModelProduct = require('../models/modelProducts');
+const queryProductRequest = new ModelProduct();
 
-module.exports = class servicesProducts {
+module.exports = class ControllerProducts {
 
     async getAllProducts(quer) {
 

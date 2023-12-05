@@ -3,8 +3,8 @@ const LocalStrategy = require('passport-local').Strategy;
 
 
 
-const serviceAuth = require('../services/serviceAuth');
-const serviceAuthRequest = new serviceAuth();
+const ControllerAuth = require('../controllers/controllerAuth');
+const serviceAuthRequest = new ControllerAuth();
 
 module.exports = async (app) => {
 

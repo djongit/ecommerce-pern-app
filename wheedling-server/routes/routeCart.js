@@ -2,8 +2,9 @@ const express = require('express');
 const cartRouter = express.Router();
 const { ensureAuthenticated } = require('../modules/moduleAuthenticated');
 
-const ServiceCart = require('../services/serviceCart');
-const ServiceCartRequest = new ServiceCart();
+const ControllerCart = require('../controllers/constrollerCart');
+const ServiceCartRequest = new ControllerCart();
+
 
 /**
  * @swagger

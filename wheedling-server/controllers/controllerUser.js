@@ -1,5 +1,5 @@
-const QueryUser = require('../queries/queryUser');
-const QueryUserRequest = new QueryUser();
+const ModelUser = require('../models/modelUser');
+const QueryUserRequest = new ModelUser();
 
 module.exports = class ServiceUser {
     async userById (data) {

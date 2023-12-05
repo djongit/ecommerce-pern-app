@@ -1,14 +1,14 @@
 const db = require('../db');
 const pgp = require('pg-promise')({capSQL: true});
 
-module.exports = class QueryOrderItem {
+module.exports = class ModelOrderItem {
     static async createOrderItem (data) {
         try {
             const psqlCommand = pgp.helpers.insert(data, null, 'cart_item') + 'RETURNING *';
             const response = db.query(psqlCommand);
             return response;
         } catch(error) {
-            throw new Error('Error createOrderItem, queryOrderItem' + error);
+            throw new Error('Error createOrderItem, modelOrderItem' + error);
         }
     }
 };

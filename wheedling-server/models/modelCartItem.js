@@ -1,7 +1,7 @@
 const db = require('../db');
 const pgp = require('pg-promise')({capSQL: true});
 
-module.exports = class QueryCartItem {
+module.exports = class ModelCartItem {
     static async createItem (data) {
         try {
             const psqlCommand = pgp.helpers.insert(data, null, 'cart_items') + 'RETURNING *';
@@ -9,7 +9,7 @@ module.exports = class QueryCartItem {
             return response.rows?.length? response.rows[0] : null;
 
         } catch(error) {
-            throw new Error('Unable to createItem queryCartItem' + error);
+            throw new Error('Unable to createItem modelCartItem' + error);
         }
     }
 
@@ -21,7 +21,7 @@ module.exports = class QueryCartItem {
             return response.rows?.length? response.rows[0] : null;
 
         } catch (error) {
-            throw new Error('Unable to updateCartItem queryCartItem' + error);
+            throw new Error('Unable to updateCartItem modelCartItem' + error);
         }
     }
     static async findCartItem (cartId) {
@@ -36,7 +36,7 @@ module.exports = class QueryCartItem {
             const response = await db.query(psqlCommand, value);
             return response.rows?.length? response.rows[0] : null;
         } catch(error) {
-            throw new Error('Unable to findCartItem queryCartItem' + error);
+            throw new Error('Unable to findCartItem modelCartItem' + error);
         }
     }
     static async deleteCartItem (id) {
@@ -50,7 +50,7 @@ module.exports = class QueryCartItem {
         const response = db.query(psqlCommand, value);
         return response.rows?.length? response.rows[0] : null;
         } catch(error) {
-            throw new Error('Undable to delete queryCartItem' + error);
+            throw new Error('Undable to delete modelCartItem' + error);
         };
         
 

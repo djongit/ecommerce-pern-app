@@ -1,8 +1,8 @@
 const express = require('express');
 const orderRouter = express.Router();
 const { ensureAuthenticated } = require('../modules/moduleAuthenticated');
-const ServiceOrder = require('../services/serviceOrder');
-const ServiceOrderRequest = new ServiceOrder();
+const ControllerOrder = require('../controllers/controllerOrder');
+const ServiceOrderRequest = new ControllerOrder();
 /**
  * @swagger
  * tags:

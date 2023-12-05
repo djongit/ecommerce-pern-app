@@ -2,9 +2,9 @@ const db = require('../db');
 const pgp = require('pg-promise');
 const moment = require('moment');
 
-const QueryOrderItem = require('./queryOrderItem');
+const ModelOrderItem = require('./modelOrderItem');
 
-module.exports = class QueryOrder {
+module.exports = class ModelOrder {
 constructor(data = {}) {
     this.created = data.created || moment.utc().toISOString();
     this.item = data.items || [];
@@ -15,7 +15,7 @@ constructor(data = {}) {
 }
 
 addItems(items) {
-    this.item = items.map((item) => new QueryOrderItem.createOrderItem(item));
+    this.item = items.map((item) => new ModelOrderItem.createOrderItem(item));
 }
 
 async createOrder() {
@@ -40,7 +40,7 @@ async updateOrder(data) {
         const result = await db.query(psqlCommand);
         return result.rows?.length? result.rows[0] : null;
     } catch(error) {
-        throw new Error('Unable to updateOrder queryOrder' + error);
+        throw new Error('Unable to updateOrder modelOrder' + error);
     }
 }
 async findOrderByUser (id) {
@@ -60,7 +60,7 @@ async orderById (id) {
         const result = db.query(psqlCommand, value);
         return result.rows?.length? result.rows[0] : null;
     } catch (error) {
-        return new Error('Unable orderById queryOrder' + error);
+        return new Error('Unable orderById modelOrder' + error);
     }
 }
 };

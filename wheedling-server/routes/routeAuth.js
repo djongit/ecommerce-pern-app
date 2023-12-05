@@ -1,7 +1,7 @@
 const express = require('express');
 const authRouter = express.Router();
-const ServiceAuth = require('../services/serviceAuth');
-const ServiceAuthRequest = new ServiceAuth();
+const ControllerAuth = require('../controllers/controllerAuth');
+const ServiceAuthRequest = new ControllerAuth();
 /**
  * @swagger
  * tags:

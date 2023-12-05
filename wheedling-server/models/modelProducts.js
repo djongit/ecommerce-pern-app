@@ -1,6 +1,6 @@
 const db = require ('../db');
 
-module.exports = class productQueries {
+module.exports = class ModelProducts {
 
     async productAll(options ={}) {
        try {

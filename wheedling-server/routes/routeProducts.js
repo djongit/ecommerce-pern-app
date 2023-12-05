@@ -1,8 +1,8 @@
 const express = require('express');
 const productRouter = express.Router();
 
-const servicesProducts = require('../services/serviceProducts');
-const servicesProductsRequest = new servicesProducts();
+const ControllerProducts = require('../controllers/controllerProducts');
+const servicesProductsRequest = new ControllerProducts();
 
 
 

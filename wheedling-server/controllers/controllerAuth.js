@@ -1,9 +1,9 @@
 const bcrypt = require('../modules/moduleBcrypt');
-const queryUser = require('../queries/queryUser');
-const queryUserRequest = new queryUser();
+const ModelUser = require('../models/modelUser');
+const queryUserRequest = new ModelUser();
 
 
-module.exports = class serviceAuth {
+module.exports = class ControllerAuth {
     async register (data) {
         const {email, password} = data;
 
