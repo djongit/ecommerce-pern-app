@@ -1,7 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from './logo.svg'; // template
+import './App.css'; // template
 
-function App() {
+import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
+const appRouter = createBrowserRouter(createRoutesFromElements(
+  //   - App root router with all components
+  <Route path = '/' element = {<Root/>}>
+      <Route index element = {<HomePage/>}/>
+      <Route path = '/register' element = {<Register/>}/>
+  </Route>
+));
+
+
+function App () {
+  return (
+    <RouterProvider router = { appRouter } />
+  )
+};
+/**
+ * 
+ * template
+ * function App() {
   return (
     <div className="App">
       <header className="App-header">
@@ -21,5 +39,9 @@ function App() {
     </div>
   );
 }
+ 
+*/
+
+
 
 export default App;
