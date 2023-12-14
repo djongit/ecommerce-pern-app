@@ -1,6 +1,6 @@
 import logo from './logo.svg'; // template
 import './App.css'; // template
-
+import { Register } from './features/register/Register';
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 const appRouter = createBrowserRouter(createRoutesFromElements(
   //   - App root router with all components
