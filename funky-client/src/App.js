@@ -1,11 +1,13 @@
-import logo from './logo.svg'; // template
+
 import './App.css'; // template
 import { Register } from './features/register/Register';
+import Root from './components/root/Root';
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
+
 const appRouter = createBrowserRouter(createRoutesFromElements(
   //   - App root router with all components
   <Route path = '/' element = {<Root/>}>
-      <Route index element = {<HomePage/>}/>
+      {/* <Route index element = {<HomePage/>}/> */}
       <Route path = '/register' element = {<Register/>}/>
   </Route>
 ));
@@ -16,9 +18,17 @@ function App () {
     <RouterProvider router = { appRouter } />
   )
 };
+
+export default App;
+
+
+
+
 /**
  * 
- * template
+ *         --- template ---
+ * 
+ * 
  * function App() {
   return (
     <div className="App">
@@ -44,4 +54,4 @@ function App () {
 
 
 
-export default App;
+
