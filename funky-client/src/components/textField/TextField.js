@@ -2,7 +2,7 @@ import TextFieldLine from '@mui/material/TextField';
 import * as React from 'react';
 // import { useField } from 'formik';
 
-function TextField (props) {
+const TextField = (props) => {
 
     return (
         <TextFieldLine 
