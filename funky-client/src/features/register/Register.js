@@ -1,21 +1,45 @@
 import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 import TextField from '../../components/textField/TextField';
 import Button from '../../components/button/Botton'
 import { Divider } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 
 
 
 export const Register = () => {
 
+
+    //   -- Registration schema
+
+    const registrationSchema = Yup.object().shape({
+        firstName: Yup.string().required(),
+        lastName: Yup.string().required(),
+        email: Yup.string().email().required(),
+        password: Yup.string()
+            .required('Password is required')
+            .min(8, 'Password is too short. At least 8 characters please'),
+        confirmPassword: Yup.string()
+            .oneOf([Yup.ref('password')],'Password must match')
+            .required('Confirm Password is required')
+    });
+   
+
     return (
         <div>
             
-            <Formik>
+            <Formik
+                initialValues={{email: '', password: ''}}
+                validationSchema={ registrationSchema }
+                validateOnBlur
+
+            >
                 <Form>
                     <h2>Register</h2>
-                    <TextField
+                    {/* <TextField
                         required
                         name = 'firstName'
                         placeholder = 'First Name'
@@ -30,7 +54,7 @@ export const Register = () => {
                         id = 'user-last-name'
                         label = 'Last Name'
                         size = 'small'
-                    />
+                    /> */}
                     <TextField
                         required
                         name = 'email'
@@ -56,14 +80,14 @@ export const Register = () => {
                         size = 'small'
                     />
                     <Divider/>
-                    <TextField
+                    {/* <TextField
                         required
                         name = 'address'
                         placeholder = 'address'
                         id = 'user-address'
                         label = 'Address'
                         size = 'small'
-                    />
+                    /> */}
                     <Button
                         name = 'submit'
                         variant = 'contained'
