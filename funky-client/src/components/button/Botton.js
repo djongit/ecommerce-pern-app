@@ -1,14 +1,14 @@
 import React, { Children } from "react";
-import muiButton from '@mui/material/Button';
+import MuiButton from '@mui/material/Button'; // Component name should begin with capital letter
 import CircularProgress from '@mui/material/CircularProgress'
 
 const Button = (props) => {
     return (
-        <muiButton
+        <MuiButton
         {...props}
         >
            
-        </muiButton>
+        </MuiButton>
     )
 }
 

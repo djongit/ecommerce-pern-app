@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-import { Formik, Form } from 'formik';
+import { Formik, Form, useFormikContext } from 'formik';
 import * as Yup from 'yup';
 import TextField from '../../components/textField/TextField';
 import Button from '../../components/button/Botton'
 import { Divider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
+// const PrintState = () => {
+    
+// const { values }  = useFormikContext();
+// console.log(values);
 
+// };
 
+// PrintState();
 
 
 export const Register = () => {
@@ -16,9 +22,9 @@ export const Register = () => {
     //   -- Registration schema
 
     const registrationSchema = Yup.object().shape({
-        firstName: Yup.string().required(),
-        lastName: Yup.string().required(),
-        email: Yup.string().email().required(),
+        // firstName: Yup.string().required(),
+        // lastName: Yup.string().required(),
+        email: Yup.string().email().required('Email is required'),
         password: Yup.string()
             .required('Password is required')
             .min(8, 'Password is too short. At least 8 characters please'),
@@ -26,17 +32,24 @@ export const Register = () => {
             .oneOf([Yup.ref('password')],'Password must match')
             .required('Confirm Password is required')
     });
-   
-
+  const PrintFormikState = () => {
+    const printFormikState = useFormikContext();
+    console.log('Formik State:', printFormikState);
+    return null;
+  }
+    
     return (
         <div>
             
             <Formik
-                initialValues={{email: '', password: ''}}
+                initialValues={{email: '',
+                                password: '', 
+                                confirmPassword: ''}}
                 validationSchema={ registrationSchema }
                 validateOnBlur
 
             >
+                 {({ errors, touched }) => (
                 <Form>
                     <h2>Register</h2>
                     {/* <TextField
@@ -60,7 +73,8 @@ export const Register = () => {
                         name = 'email'
                         placeholder = 'email'
                         id = 'user-email'
-                        label = 'email'
+                        label = {touched.email && errors.email ? errors.email : 'Email'}                      
+                        error = {touched.email && errors.email ? true : false}
                         size = 'small'
                     />
                     <TextField
@@ -68,7 +82,8 @@ export const Register = () => {
                         name = 'password'
                         placeholder = 'Password'
                         id = 'user-password'
-                        label = 'Password'
+                        label = {touched.password && errors.password ? errors.password : 'Password'}                       
+                        error = {touched.password && errors.password ? true : false }
                         size = 'small'
                     />
                     <TextField
@@ -76,7 +91,8 @@ export const Register = () => {
                         name = 'confirmPassword'
                         placeholder = 'confirmPassword'
                         id = 'user-confirm-password'
-                        label = 'Confirm Password'
+                        label = {touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : 'Confirm Password'}                   
+                        error = {touched.confirmPassword && errors.confirmPassword ? true : false }
                         size = 'small'
                     />
                     <Divider/>
@@ -88,6 +104,11 @@ export const Register = () => {
                         label = 'Address'
                         size = 'small'
                     /> */}
+
+                    {/* {touched.email && errors.email && <div>{errors.email}</div>}
+                    {touched.password && errors.password && <div>{errors.password}</div>}
+                    {touched.confirmPassword && errors.confirmPassword && <div>{errors.confirmPassword}</div>} */}
+                    
                     <Button
                         name = 'submit'
                         variant = 'contained'
@@ -95,14 +116,13 @@ export const Register = () => {
                     >
                     Submit
                     </Button>
+                    <PrintFormikState /> 
                 </Form>
-                
+                )}
             </Formik>
-
-
-            
-          
             
         </div>
+       
     )
 };
+
