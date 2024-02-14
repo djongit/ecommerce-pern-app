@@ -1,4 +1,4 @@
-import * as API from "../../components/axiosClient/AxiosClient";
+import API from "../../components/axiosClient/AxiosClient";
 
 
 //   API to register a user
@@ -8,6 +8,6 @@ export const registerUserApi = async (data) => {
         const response = API.post('auth/register', data);
         return response.data;
     } catch(err) {
-        throw new Error('Error RegisterApi, RegisterUser' + err);
+        throw new Error('Error RegisterApi' + err);
     }
 }

@@ -3,11 +3,13 @@ import MuiButton from '@mui/material/Button'; // Component name should begin wit
 import CircularProgress from '@mui/material/CircularProgress'
 
 const Button = (props) => {
+    const { isLoading, children, ...otherProps } = props
     return (
         <MuiButton
-        {...props}
+        {...otherProps}
         >
-           
+            {!isLoading && children}
+      {isLoading && <CircularProgress color="secondary"/>}
         </MuiButton>
     )
 }

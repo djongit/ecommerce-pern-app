@@ -6,10 +6,11 @@ import Button from '../../components/button/Botton'
 import { Divider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { registerUserActions } from './RegisterActions';
 
 export const Register = () => {
-
-
+    const dispatch = useDispatch();
+    
     //   -- Registration schema
 
     const registrationSchema = Yup.object().shape({
@@ -23,13 +24,25 @@ export const Register = () => {
             .oneOf([Yup.ref('password')],'Password must match')
             .required('Confirm Password is required')
     });
+
     //      ------ Use function below to print state of the Formik
-  const PrintFormikState = () => {
-    const printFormikState = useFormikContext();
-    console.log('Formik State:', printFormikState);
-    return null;
-  }
-    
+//   const PrintFormikState = () => {
+//     const printFormikState = useFormikContext();
+//     console.log('Formik State:', printFormikState);
+//     return null;
+//   }
+
+    //     ----- Manage submit form 
+
+    const handleSubmit = async (credentials) => {
+        try{
+            console.log(credentials);
+            await dispatch(registerUserActions(credentials));
+            
+        } catch (err) {
+            throw new Error('Error Register');
+        }
+    }
     return (
         <div>
             
@@ -39,7 +52,10 @@ export const Register = () => {
                                 confirmPassword: ''}}
                 validationSchema={ registrationSchema }
                 validateOnBlur
-
+                onSubmit={async (data) => {
+                    const {confirmPassword, ...credentials} = data;
+                    await handleSubmit(credentials);
+                }}
             >
                  {({ errors, touched }) => (
                 <Form>
@@ -105,10 +121,11 @@ export const Register = () => {
                         name = 'submit'
                         variant = 'contained'
                         color = 'primary'
+                        type = 'submit'
                     >
                     Submit
                     </Button>
-                    <PrintFormikState /> 
+                    {/* <PrintFormikState />  */}
                 </Form>
                 )}
             </Formik>
