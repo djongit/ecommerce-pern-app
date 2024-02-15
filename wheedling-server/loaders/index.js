@@ -2,7 +2,7 @@ const loaderSession = require('./loaderExpress');
 const loaderRoutes = require('../routes/routeIndex');
 const loaderPassport = require('./loaderPassport');
 const loaderSwagger = require('./loaderSwagger');
-
+const loaderProxyMiddleware = require('./lodderProxyMiddleware');
 
 module.exports = async (app) => {
     // const session = await loaderSession(app);
@@ -24,6 +24,10 @@ module.exports = async (app) => {
     console.log('Loading Swagger...');
     await loaderSwagger(app);
     console.log('Swagger loaded successfully');
+
+    console.log('Loading Proxy Middleware...');
+    await loaderProxyMiddleware(app);
+    console.log('Proxy Middleware loaded successfully');
 
 //        --- handle error ---
     app.use((error, req, res, next) => {

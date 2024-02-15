@@ -29,7 +29,7 @@ const ServiceAuthRequest = new ControllerAuth();
  *         - password
  */
 module.exports = (app, passport) => {
-    app.use('/auth',authRouter);
+    app.use('/api/auth',authRouter);
 /**
  * @swagger
  * /auth/register:
