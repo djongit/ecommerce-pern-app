@@ -7,7 +7,7 @@ const servicesProductsRequest = new ControllerProducts();
 
 
 module.exports = (app) => {
-    app.use('/products', productRouter);
+    app.use('/api/products', productRouter);
 
 
 /**

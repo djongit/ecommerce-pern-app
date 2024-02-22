@@ -11,7 +11,7 @@ module.exports = class ModelUser {
            const psqlCommand = 'SELECT * FROM users WHERE email = $1';
            const value = [email];
            const result = await db.query(psqlCommand, value);
-           return result.rows?.length? result.row[0] : null;
+           return result.rows?.length ? result.rows[0] : null;
 
         } catch(error) {
             throw new Error('Unable to find email modelUser' + error);
@@ -23,8 +23,9 @@ module.exports = class ModelUser {
             const psqlCommand = 'INSERT INTO users(email, password, first_name, last_name, delivery_address, billing_address, created, modified) VALUES ($1, $2, $3, $4, $5, $6, $7, NULL) RETURNING *';
             const {email, password, first_name, last_name, delivery_address, billing_address} = data;
             const values = [email, password, first_name, last_name, delivery_address, billing_address, created];
-            const result = await db.query(psqlCommand, values);
-            return result.rows?.length? result.row[0] : null;
+            const result = await db.query(psqlCommand, values);            
+             return result.rows?.length ? result.rows[0] : null;
+            // return result.rows.length ? result.rows[0] : null;
         } catch (error) {
             throw new Error('Unable to create modelUser' + error);
         }
@@ -37,7 +38,7 @@ module.exports = class ModelUser {
             const condition = pgp.as.format('WHERE id = ${id} RETURNING *', id);
             const psqlCommand = pgp.helper.update(params, null, 'users') + condition;
             const result = await db.query(psqlCommand);
-            return result.rows?.length? result.row[0] : null;
+            return result.rows?.length? result.rows[0] : null;
         } catch (error) {
             throw new Error('Unable to update user modelUser' + error);
         }

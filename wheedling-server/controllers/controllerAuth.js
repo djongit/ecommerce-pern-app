@@ -20,10 +20,8 @@ module.exports = class ControllerAuth {
         } catch (error) {
             throw error;
         }
-                    
-
-
     }
+    
     async login (data) {
         const { email, password } = data;
 

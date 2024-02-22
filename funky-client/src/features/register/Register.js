@@ -19,7 +19,7 @@ export const Register = () => {
         email: Yup.string().email('Must be a valid email').required('Email is required'),
         password: Yup.string()
             .required('Password is required')
-            .min(8, 'Password is too short. At least 8 characters please'),
+            .min(1, 'Password is too short. At least 8 characters please'), // Change from 8 to 1 for development, should be changes back for production.
         confirmPassword: Yup.string()
             .oneOf([Yup.ref('password')],'Password must match')
             .required('Confirm Password is required')
@@ -36,7 +36,7 @@ export const Register = () => {
 
     const handleSubmit = async (credentials) => {
         try{
-            console.log(credentials);
+            // console.log(credentials);
             await dispatch(registerUserActions(credentials));
             
         } catch (err) {
@@ -135,3 +135,6 @@ export const Register = () => {
     )
 };
 
+
+//             ---- Future improvements ----
+// Implement validation that user exist before submiting the form

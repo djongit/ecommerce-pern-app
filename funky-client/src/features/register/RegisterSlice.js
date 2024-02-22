@@ -4,7 +4,8 @@ import { registerUserActions } from './RegisterActions';
 const initialState = {
     isLoading: false,
     isAuthenticated: false,
-    error: null
+    error: null,
+    status: null
 };
 
 
@@ -19,13 +20,23 @@ const registerSlice = createSlice({
                 state.error = false;
                 state.isAuthenticated = false;
             })
+            // .addCase(registerUserActions.rejected, (state, action) => {
+            //     state.isLoading = false;
+            //     state.error = action.payload ? action.payload.message :  'Unknown error';
+            //     state.isAuthenticated = false; // Reset authenticated state
+            // })
             .addCase(registerUserActions.rejected, (state, action) => {
+                console.log('Rejected action payload:', action.payload);
                 state.isLoading = false;
-                state.error = action.error;
+                state.error = action.error.message || 'Unknown error';
+                state.status = action.payload;
+                state.isAuthenticated = false;
             })
             .addCase(registerUserActions.fulfilled, (state, action) => {
+                console.log('Fullfilled action payload:', action.payload);
                 state.isLoading = false;
-                state.error = action.error;
+                state.error = null; // Reset error state
+                state.status = action.payload.email; // Set authenticated state to true upon successful registration
             })
     }
     

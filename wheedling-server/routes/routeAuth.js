@@ -62,7 +62,9 @@ module.exports = (app, passport) => {
         try {
             const data = req.body;
             const response = await ServiceAuthRequest.register(data);
+           
             res.status(200).send(response);
+            
         } catch (error) {
             next(error);
         }
