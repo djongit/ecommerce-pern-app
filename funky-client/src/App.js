@@ -1,6 +1,7 @@
 
 import './App.css'; // template
 import { Register } from './features/register/Register';
+import { LogIn } from './features/logIn/LogIn';
 import Root from './components/root/Root';
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 
@@ -9,6 +10,7 @@ const appRouter = createBrowserRouter(createRoutesFromElements(
   <Route path = '/' element = {<Root/>}>
       {/* <Route index element = {<HomePage/>}/> */}
       <Route path = '/register' element = {<Register/>}/>
+      <Route path = '/login' element = { <LogIn/> }/>
   </Route>
 ));
 

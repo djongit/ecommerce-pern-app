@@ -136,5 +136,7 @@ export const Register = () => {
 };
 
 
-//             ---- Future improvements ----
-// Implement validation that user exist before submiting the form
+//             ---- Future improvements * & things to add *** ----
+// * - Implement validation that user exist before submiting the form
+
+// *** - Decide how to implement log in after registration.
