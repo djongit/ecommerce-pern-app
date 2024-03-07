@@ -1,7 +1,7 @@
 const express = require('express');
 const authRouter = express.Router();
 const ControllerAuth = require('../controllers/controllerAuth');
-const ServiceAuthRequest = new ControllerAuth();
+const ControllerAuthRequest = new ControllerAuth();
 /**
  * @swagger
  * tags:
@@ -60,8 +60,9 @@ module.exports = (app, passport) => {
 
     authRouter.post('/register', async (req, res, next) => {
         try {
+            // console.log('this is data: ', req.body);
             const data = req.body;
-            const response = await ServiceAuthRequest.register(data);
+            const response = await ControllerAuthRequest.register(data);
            
             res.status(200).send(response);
             
@@ -104,15 +105,60 @@ module.exports = (app, passport) => {
  *               error: Internal Server Error
  */
 
-    authRouter.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), async (req, res, next) => {
+
+
+// authRouter.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), async (req, res, next) => {
+    authRouter.post('/login', passport.authenticate('local'), async (req, res, next) => {
+        // console.log('this is route request: ', req);
+        // console.log('this is route response: ', res);
         try {
+            // console.log('this is Route body ', req.body);
             const {email, password} = req.body;
-            const response = ServiceAuthRequest.login({email, password});
-            res.status(200).send(response);
+            
+            const response = await ControllerAuthRequest.login({email, password});
+            console.log('route response: ', response);
+            // console.log('this is route response: ', res);
+            // res.status(200).send(response);
+            return res.status(200).json({ success: true, data: response, redirectTo: '/' });
+            // return res.status(200).redirect('/');
         } catch(error) {
+            console.log('this is auth error: ', error);           
             next(error);
         }
     });
+    // authRouter.post('/login', async (req, res, next) => {
+    //     console.log('this is route request: ', req.body);
+    //     console.log('this is route response: ', res.body);
+    //     try {
+    //         console.log('this is Route body ', req.body);
+    //         const { email, password } = req.body;
+    //         console.log('this is Route back email: ', email, password);
+            
+    //         // Move passport.authenticate('local') here
+    //         passport.authenticate('local', async (err, user, info) => {
+    //             if (err) {
+    //                 console.error('Passport authentication error:', err);
+    //                 return next(err);
+    //             }
+    //             if (!user) {
+    //                 console.error('User not found:', info.message);
+    //                 return res.status(401).send({ message: 'Incorrect email or password.' });
+    //             }
+    //             req.logIn(user, (loginErr) => {
+    //                 if (loginErr) {
+    //                     console.error('Login error:', loginErr);
+    //                     return next(loginErr);
+    //                 }
+    //                 console.log('User authenticated:', user);
+    //                 return res.status(200).send(user); // Assuming user contains necessary data
+    //             });
+    //         })(req, res, next);
+            
+    //     } catch (error) {
+    //         console.error('Route error:', error);
+    //         next(error);
+    //     }
+    // });
 
     // authRouter.get('/profile', isLoggedIn, (req, res, next) => {
         

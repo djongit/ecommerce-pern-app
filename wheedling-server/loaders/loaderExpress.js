@@ -12,6 +12,8 @@ module.exports = (app) => {
         extended: true
     }));
 
+    // app.set('trust poxy', 1);
+
     app.use(
         session({
             secret: SESSION_SECRET,
@@ -19,7 +21,7 @@ module.exports = (app) => {
             saveUninitialized: false,
             cookie: {
                 maxAge: 1000 * 60 *60, 
-                // secure: true,
+                secure: true,
                 sameSite: 'none',
                 httpOnly: true
             }

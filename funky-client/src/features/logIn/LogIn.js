@@ -27,6 +27,7 @@ export const LogIn = () => {
     };
 
     const handleLogin = async(credentials) => {
+        // const { email, password } = credentials;
         try{
             await dispatch(logInAction(credentials));
         } catch(err) {
@@ -42,7 +43,9 @@ export const LogIn = () => {
             //                 password: ''}}
              initialValues={initialValues}
              validateOnBlur
-             onSubmit={handleLogin}
+             onSubmit={async (values) => {
+                const {email, password } = values;
+                handleLogin({ email, password})}}
             >
                 {({errors, touched}) => (
                     <Form>

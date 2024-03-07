@@ -10,6 +10,7 @@ module.exports = class ModelUser {
         try {
            const psqlCommand = 'SELECT * FROM users WHERE email = $1';
            const value = [email];
+        //    console.log('this is model email: ', email);
            const result = await db.query(psqlCommand, value);
            return result.rows?.length ? result.rows[0] : null;
 

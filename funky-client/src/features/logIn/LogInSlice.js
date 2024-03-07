@@ -18,18 +18,21 @@ const logInSlice = createSlice({
         builder
             .addCase(logInAction.pending, (state, action) => {
                 state.isLoading = true;
-                isAuthenticated = false;
-                error = false;
+                state.isAuthenticated = false;
+                state.error = false;
             })
             .addCase(logInAction.rejected, (state, action) => {
                 state.isLoading = false;
-                isAuthenticated = false;
-                error = action.error.message;
+                state.isAuthenticated = false;
+                state.error = action.error.message;
+                // console.log('this is rejected:', action.error);
             })
             .addCase(logInAction.fulfilled, (state, action) => {
                 state.isLoading = false;
-                isAuthenticated = true;
-                error = false;
+                state.isAuthenticated = true;
+                state.error = false;
             })
     }
 })
+
+export default logInSlice.reducer;
