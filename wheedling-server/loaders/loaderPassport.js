@@ -1,10 +1,14 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-
+const GoogleStrategy = require( 'passport-google-oidc');
 
 
 const ControllerAuth = require('../controllers/controllerAuth');
 const ControllerAuthRequest = new ControllerAuth();
+
+
+
+const { GOOGLE, FACEBOOK } = require('../conf');
 
 module.exports = async (app) => {
 
@@ -40,7 +44,14 @@ module.exports = async (app) => {
                 return done(error);
             }
         }
-    ))
+    ));
+
+        //          --- Google login ---
+    passport.use(new GoogleStrategy({
+        clienID: GOOGLE.CONF_GOOGLE_CLIENT_KEY,
+        clientSecret: GOOGLE.CONF_GOOGLE_CLIENT_SECRET,
+        callbackURL: GOOGLE.CONF_GOOGLE_CALLBACK_URL
+    }),);
     return passport;
 
 };

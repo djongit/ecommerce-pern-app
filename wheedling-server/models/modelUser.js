@@ -41,7 +41,7 @@ module.exports = class ModelUser {
             const result = await db.query(psqlCommand);
             return result.rows?.length? result.rows[0] : null;
         } catch (error) {
-            throw new Error('Unable to update user modelUser' + error);
+            throw new Error('Unable to update user modelUser', error);
         }
     }
 
@@ -52,7 +52,29 @@ module.exports = class ModelUser {
             const result = await db.query(psqlCommand, value);
             return result.rows?.length? result.rows[0] : null;
         } catch (error) {
-            throw new Error('Unable to get by Id modelUser' + error);
+            throw new Error('Unable to get by Id modelUser', error);
+        }
+    }
+
+    async findUserByGoogleId (id) {
+        try {
+            const psqlCommand = 'SELECT * FROM users WHERE google ->> "id" = $1';
+            const value = [id];
+            const result = await db.query(psqlCommand, value);
+            return result.rows?.length? result.rows[0] : null;
+        } catch(error) {
+            throw new Error('Unable to find by Google id modelUser', error);
+        }
+    }
+
+    async findUserByFacebookId (id) {
+        try {
+            const psqlCommand = 'SELECT * FROM users WHERE facebook ->> "id" = $1';
+            const value = [id];
+            const result = await db.query(psqlCommand, value);
+            return result.rows?.length ? result.rows[0] : null;
+        } catch (error) {
+            throw new Error('Unable to find by Facebook id modelUser', error);
         }
     }
 }

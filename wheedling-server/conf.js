@@ -11,6 +11,11 @@ module.exports = {
       PGPASSWORD: process.env.PGPASSWORD,
       PGPORT: process.env.PGPORT
     },
+    GOOGLE: {
+      CONF_GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL,
+      CONF_GOOGLE_CLIENT_KEY: process.env.GOOGLE_CLIENT_KEY,
+      CONF_GOOGLE_CLIENT_SECRET: process.env.GOOGLE_SECRET
+    },
     SESSION_SECRET: process.env.SESSION_SECRET
   };
 

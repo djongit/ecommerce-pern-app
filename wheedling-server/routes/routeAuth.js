@@ -1,7 +1,9 @@
 const express = require('express');
 const authRouter = express.Router();
+
 const ControllerAuth = require('../controllers/controllerAuth');
 const ControllerAuthRequest = new ControllerAuth();
+
 /**
  * @swagger
  * tags:
@@ -106,9 +108,9 @@ module.exports = (app, passport) => {
  */
 
 
-
+//            -- Local login --
 // authRouter.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), async (req, res, next) => {
-    authRouter.post('/login', passport.authenticate('local'), async (req, res, next) => {
+    authRouter.post('/login', passport.authenticate('local', {failureRedirect: '/login'}), async (req, res, next) => {
         // console.log('this is route request: ', req);
         // console.log('this is route response: ', res);
         try {
@@ -163,6 +165,27 @@ module.exports = (app, passport) => {
     // authRouter.get('/profile', isLoggedIn, (req, res, next) => {
         
     // })
+
+//       --- Google Login ---
+authRouter.get('/google', passport.authenticate('google', {scope: ['profile']}));
+
+authRouter.get('google/callback', passport.authenticate('google', { failureRedirect: '/login'}),
+    (req, res) => {
+        // On successful authentication, user redirected to homepage.
+        res.redirect('/');
+    }
+);
+
+
+//              --- Facebook Login ---
+authRouter.get('/facebook', passport.authenticate('facebook'));
+authRouter.get('facbook/callback', passport.authenticate('facebook', { failureRedirect: '/login'}),
+    (req, res) => {
+        // On succesful authentication, redirect to homepage.
+        res.redirect('/');
+    }
+);
+
 /**
  * @swagger
  * /auth/logout:

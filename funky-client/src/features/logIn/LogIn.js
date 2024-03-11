@@ -43,9 +43,12 @@ export const LogIn = () => {
             //                 password: ''}}
              initialValues={initialValues}
              validateOnBlur
-             onSubmit={async (values) => {
+             onSubmit={async (values, {resetForm }) => {
                 const {email, password } = values;
-                handleLogin({ email, password})}}
+                await handleLogin({ email, password}); 
+                // resetForm();         
+            }}
+
             >
                 {({errors, touched}) => (
                     <Form>
