@@ -1,8 +1,8 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const GoogleStrategy = require( 'passport-google-oidc');
+// const GoogleStrategy = require('passport-google-oidc');
 
-
+const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 const ControllerAuth = require('../controllers/controllerAuth');
 const ControllerAuthRequest = new ControllerAuth();
 
@@ -17,7 +17,7 @@ module.exports = async (app) => {
 
     // set id as cookie in user browser
     passport.serializeUser((user, done) => {
-        // console.log('Serialize userId: ', user);
+        console.log('Serialize userId: ', user);
         done(null, user.user_id);
     });
     passport.deserializeUser((id, done) => {
@@ -47,11 +47,23 @@ module.exports = async (app) => {
     ));
 
         //          --- Google login ---
+       
     passport.use(new GoogleStrategy({
-        clienID: GOOGLE.CONF_GOOGLE_CLIENT_KEY,
+        clientID: GOOGLE.CONF_GOOGLE_CLIENT_KEY,
         clientSecret: GOOGLE.CONF_GOOGLE_CLIENT_SECRET,
         callbackURL: GOOGLE.CONF_GOOGLE_CALLBACK_URL
-    }),);
+    },
+    async (accessToken, refreshToken, profile, next) => {
+        console.log('this is passport profile: ', profile);
+        try {
+            
+            const findGoogleUser =  await ControllerAuthRequest.controllerAuthGoogleLogin(profile);
+            return done(null, findGoogleUser);
+        } catch(error) {
+            return done(error);
+        }
+    }
+    ));
     return passport;
 
 };

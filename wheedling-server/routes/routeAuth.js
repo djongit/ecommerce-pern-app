@@ -167,11 +167,12 @@ module.exports = (app, passport) => {
     // })
 
 //       --- Google Login ---
-authRouter.get('/google', passport.authenticate('google', {scope: ['profile']}));
+authRouter.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
 authRouter.get('google/callback', passport.authenticate('google', { failureRedirect: '/login'}),
     (req, res) => {
         // On successful authentication, user redirected to homepage.
+        console.log('this is route request: ', req);
         res.redirect('/');
     }
 );

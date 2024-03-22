@@ -19,11 +19,12 @@ module.exports = class ModelUser {
         }
     }
     async createUser (data) {
+        console.log('this is model data: ', data);
         try {
             const created = this.getDate();
-            const psqlCommand = 'INSERT INTO users(email, password, first_name, last_name, delivery_address, billing_address, created, modified) VALUES ($1, $2, $3, $4, $5, $6, $7, NULL) RETURNING *';
-            const {email, password, first_name, last_name, delivery_address, billing_address} = data;
-            const values = [email, password, first_name, last_name, delivery_address, billing_address, created];
+            const psqlCommand = 'INSERT INTO users(email, password, first_name, last_name, delivery_address, billing_address, created, modified, google, facebook) VALUES ($1, $2, $3, $4, $5, $6, $7, NULL, $8, $9) RETURNING *';
+            const {email, password, first_name, last_name, delivery_address, billing_address, google, facebook} = data;
+            const values = [email, password, first_name, last_name, delivery_address, billing_address, created, google, facebook];
             const result = await db.query(psqlCommand, values);            
              return result.rows?.length ? result.rows[0] : null;
             // return result.rows.length ? result.rows[0] : null;
@@ -56,7 +57,8 @@ module.exports = class ModelUser {
         }
     }
 
-    async findUserByGoogleId (id) {
+    async modelUserFindUserByGoogleId (id) {
+        console.log('Model find google user: ', id);
         try {
             const psqlCommand = 'SELECT * FROM users WHERE google ->> "id" = $1';
             const value = [id];
@@ -67,7 +69,7 @@ module.exports = class ModelUser {
         }
     }
 
-    async findUserByFacebookId (id) {
+    async modelUserFindUserByFacebookId (id) {
         try {
             const psqlCommand = 'SELECT * FROM users WHERE facebook ->> "id" = $1';
             const value = [id];

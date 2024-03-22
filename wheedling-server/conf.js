@@ -16,6 +16,11 @@ module.exports = {
       CONF_GOOGLE_CLIENT_KEY: process.env.GOOGLE_CLIENT_KEY,
       CONF_GOOGLE_CLIENT_SECRET: process.env.GOOGLE_SECRET
     },
+    FACEBOOK: {
+      CONF_FACEBOOK_CALLBACK_URL: process.env.CALLBACK_URL,
+      CONF_FACEBOOK_CLIENT_KEY: process.env.CLIENT_KEY,
+      CONF_FACEBOOK_SECRET: process.env.SECRET
+    },
     SESSION_SECRET: process.env.SESSION_SECRET
   };
 

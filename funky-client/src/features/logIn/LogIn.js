@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +10,7 @@ import  Button  from "../../components/button/Botton";
 
 //         --- Actions import ---
 import { logInAction } from "./LogInActions";
+import { Divider } from "@mui/material";
 
 
 
@@ -35,6 +37,24 @@ export const LogIn = () => {
         }
     };
 
+    const handleFacebookLogin = async(values) => {
+        console.log('this is facebook values: ' ,values);
+    };
+
+    // const handleGoogleLogin = async(googleCredentials) => {
+    //     console.log('this is google values: ', googleCredentials);
+    //     try{
+
+    //     } catch(error) {
+    //         throw new Error('Google Login error', error);
+    //     }
+    // };
+
+    // const handleGoogleLogin = (e) => {
+    //    e.preventDefault();
+    //    window.open('http://localhost:4001/api/auth/google', '_blank', 'width=600,height=400');
+    //    };
+
     return (
         <div>
             <Formik
@@ -46,11 +66,13 @@ export const LogIn = () => {
              onSubmit={async (values, {resetForm }) => {
                 const {email, password } = values;
                 await handleLogin({ email, password}); 
-                // resetForm();         
+                // resetForm();    // use this to clear form after submition button press    
+
             }}
+            // onSubmit = {handleLogin}
 
             >
-                {({errors, touched}) => (
+                {({values, errors, touched}) => (
                     <Form>
                         <h2>This is LogIn</h2>
                         <TextField                          
@@ -75,11 +97,25 @@ export const LogIn = () => {
                         >
                             Log In
                         </Button>
+                        <Divider/>
+                        <div className="socialLogin">
+                            {/* <Button variant = 'contained' className = 'googleButton' onSubmit = {handleLogin} type = 'submit'>Google</Button> */}
+                            {/* <a href="/login/google" className="button">Sign in with Google</a> */}
+                            <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+                                <p>Sign in with</p>
+                            </div>
+                            <div className="social-btn-container">
+                                <Button name = 'facebook' variant="contained" className="facebook-btn" onClick = {() => handleFacebookLogin(values)}>Facebook</Button>
+                                {/* <a href = 'http://localhost:4001/api/auth/google'> */}
+                                <Button name = 'google' variant="contained" className="google-btn"  onClick = {() => window.location.href = 'http://localhost:4001/api/auth/google'}>Google</Button>
+                                {/* </a> */}
+                               
+                            </div>
+                        </div>
                     </Form>
                 )}
                 
             </Formik>
-            
             
        
         </div>
@@ -87,3 +123,5 @@ export const LogIn = () => {
 };
 
 // export default LogIn;
+
+// {/* <Button name = 'google' variant="contained" className="google-btn"  onClick = {() => window.location.href = 'http://localhost:4001/api/auth/google'}>Google</Button> */}
