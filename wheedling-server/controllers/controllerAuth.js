@@ -55,10 +55,11 @@ module.exports = class ControllerAuth {
 
     async controllerAuthGoogleLogin (profile) {
         const { id , displayName } = profile;
-        console.log('this is controller google profile: ', profile);
+        
         try {
+            // console.log('this is controller google profile: ', profile);
              const googleUserExist = await modelUserRequest.modelUserFindUserByGoogleId(id);
-
+            // console.log('this is controller googleUserExist: ', googleUserExist);
              //     -- Create google user if not exist --
              if (!googleUserExist) {
                 return await modelUserRequest.createUser({ google: {id, displayName} });

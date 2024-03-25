@@ -12,7 +12,7 @@ module.exports = (app) => {
         extended: true
     }));
 
-    // app.set('trust poxy', 1);
+    app.set('trust poxy', 1);
 
     app.use(
         session({

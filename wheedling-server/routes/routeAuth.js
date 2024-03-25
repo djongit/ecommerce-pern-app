@@ -169,18 +169,23 @@ module.exports = (app, passport) => {
 //       --- Google Login ---
 authRouter.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
-authRouter.get('google/callback', passport.authenticate('google', { failureRedirect: '/login'}),
+authRouter.get('/google/callback',//(req, res, next) =>{
+    // console.log('this is route response: ', res)
+    // next() },  
+    passport.authenticate('google', { failureRedirect: '/login'}),
     (req, res) => {
         // On successful authentication, user redirected to homepage.
-        console.log('this is route request: ', req);
-        res.redirect('/');
+
+        // console.log('this is route callback: ', res);
+        // res.redirect('/');
+        res.redirect('http://localhost:3000');
     }
 );
 
 
 //              --- Facebook Login ---
 authRouter.get('/facebook', passport.authenticate('facebook'));
-authRouter.get('facbook/callback', passport.authenticate('facebook', { failureRedirect: '/login'}),
+authRouter.get('/facbook/callback', passport.authenticate('facebook', { failureRedirect: '/login'}),
     (req, res) => {
         // On succesful authentication, redirect to homepage.
         res.redirect('/');

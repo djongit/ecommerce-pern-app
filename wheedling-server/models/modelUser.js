@@ -12,6 +12,7 @@ module.exports = class ModelUser {
            const value = [email];
         //    console.log('this is model email: ', email);
            const result = await db.query(psqlCommand, value);
+           console.log('name result: ', result);
            return result.rows?.length ? result.rows[0] : null;
 
         } catch(error) {
@@ -58,20 +59,24 @@ module.exports = class ModelUser {
     }
 
     async modelUserFindUserByGoogleId (id) {
-        console.log('Model find google user: ', id);
+        
         try {
-            const psqlCommand = 'SELECT * FROM users WHERE google ->> "id" = $1';
+            // console.log('Model find google user: ', id);
+            const psqlCommand = `SELECT * FROM users WHERE google ->> 'id' = $1`;
             const value = [id];
             const result = await db.query(psqlCommand, value);
+            // console.log('this is model google use result: ', result);
             return result.rows?.length? result.rows[0] : null;
+
         } catch(error) {
+            console.log('this is model google errorrrr: ', error);
             throw new Error('Unable to find by Google id modelUser', error);
         }
     }
 
     async modelUserFindUserByFacebookId (id) {
         try {
-            const psqlCommand = 'SELECT * FROM users WHERE facebook ->> "id" = $1';
+            const psqlCommand = `SELECT * FROM users WHERE facebook ->> 'id' = $1`;
             const value = [id];
             const result = await db.query(psqlCommand, value);
             return result.rows?.length ? result.rows[0] : null;
